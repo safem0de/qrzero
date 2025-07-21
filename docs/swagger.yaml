@@ -1,6 +1,51 @@
+definitions:
+  handler.GenerateRequest:
+    properties:
+      account_id:
+        type: string
+      customer_id:
+        type: string
+      group_id:
+        type: string
+    required:
+    - account_id
+    - group_id
+    type: object
+  handler.QRRequest:
+    properties:
+      path:
+        type: string
+      qr:
+        type: string
+    required:
+    - path
+    - qr
+    type: object
 info:
   contact: {}
 paths:
+  /api/v1/generate:
+    post:
+      consumes:
+      - application/json
+      description: Generate string from input params
+      parameters:
+      - description: Request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.GenerateRequest'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Generate String
+      tags:
+      - v1
   /api/v1/hello:
     get:
       description: Hello from v1
@@ -14,6 +59,36 @@ paths:
               type: string
             type: object
       summary: Say Hello (V1)
+      tags:
+      - v1
+  /api/v1/qr:
+    post:
+      consumes:
+      - application/json
+      description: สร้างไฟล์ QR Code PNG จาก text
+      parameters:
+      - description: ข้อมูล QR
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handler.QRRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Generate QR Code
       tags:
       - v1
   /api/v2/hello:
