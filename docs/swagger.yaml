@@ -1,14 +1,9 @@
-basePath: /
-host: localhost:8080
 info:
   contact: {}
-  description: This is a sample server.
-  title: Example API
-  version: "1.0"
 paths:
-  /hello:
+  /api/v1/hello:
     get:
-      description: Respond with hello world
+      description: Hello from v1
       produces:
       - application/json
       responses:
@@ -18,7 +13,22 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Say Hello
+      summary: Say Hello (V1)
       tags:
-      - example
+      - v1
+  /api/v2/hello:
+    get:
+      description: Hello from v2 (new logic)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Say Hello (V2)
+      tags:
+      - v2
 swagger: "2.0"

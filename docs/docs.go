@@ -15,16 +15,39 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/hello": {
+        "/api/v1/hello": {
             "get": {
-                "description": "Respond with hello world",
+                "description": "Hello from v1",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "v1"
                 ],
-                "summary": "Say Hello",
+                "summary": "Say Hello (V1)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/hello": {
+            "get": {
+                "description": "Hello from v2 (new logic)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v2"
+                ],
+                "summary": "Say Hello (V2)",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -43,12 +66,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
-	Host:             "localhost:8080",
-	BasePath:         "/",
+	Version:          "",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "Example API",
-	Description:      "This is a sample server.",
+	Title:            "",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,24 +1,42 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample server.",
-        "title": "Example API",
-        "contact": {},
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "localhost:8080",
-    "basePath": "/",
     "paths": {
-        "/hello": {
+        "/api/v1/hello": {
             "get": {
-                "description": "Respond with hello world",
+                "description": "Hello from v1",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "v1"
                 ],
-                "summary": "Say Hello",
+                "summary": "Say Hello (V1)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/hello": {
+            "get": {
+                "description": "Hello from v2 (new logic)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v2"
+                ],
+                "summary": "Say Hello (V2)",
                 "responses": {
                     "200": {
                         "description": "OK",
