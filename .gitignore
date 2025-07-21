@@ -1,0 +1,19 @@
+# Go stuff
+bin/
+*.exe
+*.test
+*.out
+
+# Vendor & dep
+vendor/
+Gopkg.lock
+Gopkg.toml
+
+# IDE/editor
+.vscode/
+.idea/
+.DS_Store
+
+# Swag auto-gen (swag init)
+docs/swagger.json
+docs/swagger.yaml
