@@ -1,4 +1,5 @@
-package repository
+// qrzero\internal\01_entity\custable.go
+package entity
 
 import "time"
 

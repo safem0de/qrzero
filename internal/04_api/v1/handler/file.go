@@ -3,14 +3,14 @@ package handler
 import (
     "net/http"
     "github.com/gin-gonic/gin"
-    "qrzero/internal/v1/service"
+    "qrzero/internal/02_application"
 )
 
 type FileHandler struct {
-    svc service.FileService
+    svc application.FileService
 }
 
-func NewFileHandler(svc service.FileService) *FileHandler {
+func NewFileHandler(svc application.FileService) *FileHandler {
     return &FileHandler{svc: svc}
 }
 
@@ -20,7 +20,7 @@ func NewFileHandler(svc service.FileService) *FileHandler {
 // @Accept       json
 // @Produce      json
 // @Param        path query string true "Directory path"
-// @Success      200  {array}  repository.FileInfo
+// @Success      200  {array}  entity.FileInfo
 // @Failure      400  {object}  map[string]string
 // @Router       /api/v1/files [get]
 func (h *FileHandler) ListFiles(c *gin.Context) {

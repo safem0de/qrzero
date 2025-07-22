@@ -1,6 +1,5 @@
 // internal\v1\repository\file_info.go
-
-package repository
+package entity
 
 import "time"
 

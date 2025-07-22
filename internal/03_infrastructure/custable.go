@@ -1,23 +1,23 @@
-package repository
+// qrzero\internal\03_infrastructure\custable.go
+
+package infrastructure
 
 import (
 	"context"
 	"database/sql"
+	"qrzero/internal/01_entity"
+	"qrzero/internal/02_application"
 )
-
-type CustomerRepository interface {
-	GetRecentActiveCustomers(ctx context.Context) ([]Customer, error)
-}
 
 type customerRepository struct {
 	db *sql.DB
 }
 
-func NewCustomerRepository(db *sql.DB) CustomerRepository {
+func NewCustomerRepository(db *sql.DB) application.CustomerService {
 	return &customerRepository{db: db}
 }
 
-func (r *customerRepository) GetRecentActiveCustomers(ctx context.Context) ([]Customer, error) {
+func (r *customerRepository) GetRecentActiveCustomers(ctx context.Context) ([]entity.Customer, error) {
 	query := `
 	SELECT [BTL_BILLERID], [ACCOUNTNUM], [BPC_COMPANYBANK], [NAME], [BTL_CUSTOMERSTATUS], [MODIFIEDDATETIME]
 	FROM [WEBORDER].[dbo].[CUSTTABLE]
@@ -33,9 +33,9 @@ func (r *customerRepository) GetRecentActiveCustomers(ctx context.Context) ([]Cu
 	}
 	defer rows.Close()
 
-	var customers []Customer
+	var customers []entity.Customer
 	for rows.Next() {
-		var c Customer
+		var c entity.Customer
 		err := rows.Scan(
 			&c.BillerID,
 			&c.AccountNum,

@@ -34,7 +34,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/repository.Customer"
+                                "$ref": "#/definitions/entity.Customer"
                             }
                         }
                     },
@@ -78,7 +78,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/repository.FileInfo"
+                                "$ref": "#/definitions/entity.FileInfo"
                             }
                         }
                     },
@@ -114,7 +114,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handler.GenerateRequest"
+                            "$ref": "#/definitions/entity.GenerateStringRequest"
                         }
                     }
                 ],
@@ -171,7 +171,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handler.QRRequest"
+                            "$ref": "#/definitions/entity.GenerateQRRequest"
                         }
                     }
                 ],
@@ -222,41 +222,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "handler.GenerateRequest": {
-            "type": "object",
-            "required": [
-                "account_num",
-                "biller_id",
-                "company_bank"
-            ],
-            "properties": {
-                "account_num": {
-                    "type": "string"
-                },
-                "biller_id": {
-                    "type": "string"
-                },
-                "company_bank": {
-                    "type": "string"
-                }
-            }
-        },
-        "handler.QRRequest": {
-            "type": "object",
-            "required": [
-                "path",
-                "qr"
-            ],
-            "properties": {
-                "path": {
-                    "type": "string"
-                },
-                "qr": {
-                    "type": "string"
-                }
-            }
-        },
-        "repository.Customer": {
+        "entity.Customer": {
             "type": "object",
             "properties": {
                 "account_num": {
@@ -279,13 +245,51 @@ const docTemplate = `{
                 }
             }
         },
-        "repository.FileInfo": {
+        "entity.FileInfo": {
             "type": "object",
             "properties": {
                 "mod_time": {
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "entity.GenerateQRRequest": {
+            "type": "object",
+            "required": [
+                "path",
+                "qr"
+            ],
+            "properties": {
+                "path": {
+                    "type": "string"
+                },
+                "qr": {
+                    "type": "string"
+                }
+            }
+        },
+        "entity.GenerateStringRequest": {
+            "type": "object",
+            "required": [
+                "account_num",
+                "amount",
+                "biller_id",
+                "company_bank"
+            ],
+            "properties": {
+                "account_num": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string"
+                },
+                "biller_id": {
+                    "type": "string"
+                },
+                "company_bank": {
                     "type": "string"
                 }
             }

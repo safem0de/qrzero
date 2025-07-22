@@ -1,18 +1,18 @@
-// internal\v1\handler\custable_handler.go
 
 package handler
 
 import (
 	"net/http"
-	"qrzero/internal/v1/service"
 	"github.com/gin-gonic/gin"
+	"qrzero/internal/02_application"
 )
 
+// ให้ struct CustomerHandler รับ CustomerRepository (หรือ Service) จาก application
 type CustomerHandler struct {
-	service service.CustomerService
+	service application.CustomerService
 }
 
-func NewCustomerHandler(service service.CustomerService) *CustomerHandler {
+func NewCustomerHandler(service application.CustomerService) *CustomerHandler {
 	return &CustomerHandler{service: service}
 }
 
@@ -22,7 +22,7 @@ func NewCustomerHandler(service service.CustomerService) *CustomerHandler {
 // @Tags         v1-GET
 // @Accept       json
 // @Produce      json
-// @Success      200  {array}  repository.Customer
+// @Success      200  {array}  entity.Customer
 // @Failure      500  {object}  map[string]string
 // @Router       /api/v1/customers [get]
 func (h *CustomerHandler) GetRecentActiveCustomers(c *gin.Context) {

@@ -2,20 +2,16 @@ package handler
 
 import (
     "net/http"
+    "qrzero/internal/01_entity"
+    "qrzero/internal/02_application"
     "github.com/gin-gonic/gin"
-    "qrzero/internal/v1/service"
 )
 
-type QRRequest struct {
-    QRString string `json:"qr" binding:"required"`
-    Path     string `json:"path" binding:"required"`
-}
-
 type QRHandler struct {
-    svc service.QRService
+    svc application.QRService
 }
 
-func NewQRHandler(svc service.QRService) *QRHandler {
+func NewQRHandler(svc application.QRService) *QRHandler {
     return &QRHandler{svc: svc}
 }
 
@@ -24,17 +20,17 @@ func NewQRHandler(svc service.QRService) *QRHandler {
 // @Tags         v1-POST
 // @Accept       json
 // @Produce      json
-// @Param        body  body  QRRequest  true  "ข้อมูล QR"
+// @Param        body  body  entity.GenerateQRRequest  true  "ข้อมูล QR"
 // @Success      200   {object}  map[string]string
 // @Failure      400   {object}  map[string]string
 // @Router       /api/v1/qr [post]
 func (h *QRHandler) GenerateQR(c *gin.Context) {
-    var req QRRequest
+    var req entity.GenerateQRRequest
     if err := c.ShouldBindJSON(&req); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
-    if err := h.svc.GenerateQR(req.QRString, req.Path); err != nil {
+    if err := h.svc.GenerateQR(req); err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }

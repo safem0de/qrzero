@@ -1,34 +1,31 @@
-package service
+package infrastructure
 
 import (
-    "os"
+	"os"
     "sort"
-    "qrzero/internal/v1/repository"
+	"qrzero/internal/01_entity"
+	"qrzero/internal/02_application"
 )
 
-type FileService interface {
-    ListFiles(path string) ([]repository.FileInfo, error)
+type fileRepository struct{}
+
+func NewFileRepository() application.FileService {
+    return &fileRepository{}
 }
 
-type fileService struct{}
-
-func NewFileService() FileService {
-    return &fileService{}
-}
-
-func (s *fileService) ListFiles(path string) ([]repository.FileInfo, error) {
+func (s *fileRepository) ListFiles(path string) ([]entity.FileInfo, error) {
     entries, err := os.ReadDir(path)
     if err != nil {
         return nil, err
     }
-    var files []repository.FileInfo
+    var files []entity.FileInfo
     for _, entry := range entries {
         if entry.Type().IsRegular() {
             info, err := entry.Info()
             if err != nil {
                 continue
             }
-            files = append(files, repository.FileInfo{
+            files = append(files, entity.FileInfo{
                 Name:    entry.Name(),
                 ModTime: info.ModTime(),
             })

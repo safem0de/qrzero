@@ -1,5 +1,3 @@
-// cmd\main.go
-
 package main
 
 import (
@@ -10,10 +8,10 @@ import (
 
     "github.com/gin-gonic/gin"
     "github.com/joho/godotenv"
-    handler_v1 "qrzero/internal/v1/handler"
-    service_v1 "qrzero/internal/v1/service"
-    repository_v1 "qrzero/internal/v1/repository"
-    handler_v2 "qrzero/internal/v2/handler"
+
+    "qrzero/internal/03_infrastructure"
+	handler_v1 "qrzero/internal/04_api/v1/handler"
+    handler_v2 "qrzero/internal/04_api/v2/handler"
 
     ginSwagger "github.com/swaggo/gin-swagger"
     swaggerFiles "github.com/swaggo/files"
@@ -34,29 +32,27 @@ func main() {
 	}
 	defer db.Close()
 
+    customerRepo := infrastructure.NewCustomerRepository(db)
+    customerHandler := handler_v1.NewCustomerHandler(customerRepo)
+
+    fileRepo := infrastructure.NewFileRepository()
+    fileHandler := handler_v1.NewFileHandler(fileRepo)
+
+    genStringRepo := infrastructure.NewGenerateStringRepository()
+    genStringHandler := handler_v1.NewGenerateStringHandler(genStringRepo)
+
+    genQRRepo := infrastructure.NewQRRepository()
+    genQRHandler := handler_v1.NewQRHandler(genQRRepo)
+
     r := gin.Default()
-
-    genService := service_v1.NewGenerateService()
-    genHandler := handler_v1.NewGenerateHandler(genService)
-
-    qrService := service_v1.NewQRService()
-    qrHandler := handler_v1.NewQRHandler(qrService)
-
-    fileSvc := service_v1.NewFileService()
-    fileHandler := handler_v1.NewFileHandler(fileSvc)
-
-    // ===== Customer Repository/Service/Handler DI =====
-    customerRepo := repository_v1.NewCustomerRepository(db)
-    customerService := service_v1.NewCustomerService(customerRepo)
-    customerHandler := handler_v1.NewCustomerHandler(customerService)
 
     v1 := r.Group("/api/v1")
     {
         v1.GET("/hello", handler_v1.HelloHandler)
-        v1.GET("/files", fileHandler.ListFiles)
         v1.GET("/customers", customerHandler.GetRecentActiveCustomers)
-        v1.POST("/generate", genHandler.Generate)
-        v1.POST("/qr", qrHandler.GenerateQR)
+        v1.GET("/files", fileHandler.ListFiles)
+        v1.POST("/generate", genStringHandler.GenerateString)
+        v1.POST("/qr", genQRHandler.GenerateQR)
     }
 
     v2 := r.Group("/api/v2")
