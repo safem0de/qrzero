@@ -1,15 +1,16 @@
 definitions:
   handler.GenerateRequest:
     properties:
-      account_id:
+      account_num:
         type: string
-      customer_id:
+      biller_id:
         type: string
-      group_id:
+      company_bank:
         type: string
     required:
-    - account_id
-    - group_id
+    - account_num
+    - biller_id
+    - company_bank
     type: object
   handler.QRRequest:
     properties:
@@ -21,7 +22,22 @@ definitions:
     - path
     - qr
     type: object
-  service.FileInfo:
+  repository.Customer:
+    properties:
+      account_num:
+        type: string
+      biller_id:
+        type: string
+      company_bank:
+        type: string
+      customer_status:
+        type: integer
+      modified_datetime:
+        type: string
+      name:
+        type: string
+    type: object
+  repository.FileInfo:
     properties:
       mod_time:
         type: string
@@ -31,6 +47,30 @@ definitions:
 info:
   contact: {}
 paths:
+  /api/v1/customers:
+    get:
+      consumes:
+      - application/json
+      description: คืนค่าข้อมูลลูกค้าที่แอคทีฟหรือ Re-Active ในสัปดาห์ปัจจุบัน (ตาม
+        MSSQL)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/repository.Customer'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: รายชื่อลูกค้าแอคทีฟในสัปดาห์นี้
+      tags:
+      - v1-GET
   /api/v1/files:
     get:
       consumes:
@@ -49,7 +89,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/service.FileInfo'
+              $ref: '#/definitions/repository.FileInfo'
             type: array
         "400":
           description: Bad Request

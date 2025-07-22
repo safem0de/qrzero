@@ -20,7 +20,7 @@ func NewFileHandler(svc service.FileService) *FileHandler {
 // @Accept       json
 // @Produce      json
 // @Param        path query string true "Directory path"
-// @Success      200  {array}  service.FileInfo
+// @Success      200  {array}  repository.FileInfo
 // @Failure      400  {object}  map[string]string
 // @Router       /api/v1/files [get]
 func (h *FileHandler) ListFiles(c *gin.Context) {

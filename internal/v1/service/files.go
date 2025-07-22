@@ -2,17 +2,12 @@ package service
 
 import (
     "os"
-    "time"
     "sort"
+    "qrzero/internal/v1/repository"
 )
 
-type FileInfo struct {
-    Name    string    `json:"name"`
-    ModTime time.Time `json:"mod_time"`
-}
-
 type FileService interface {
-    ListFiles(path string) ([]FileInfo, error)
+    ListFiles(path string) ([]repository.FileInfo, error)
 }
 
 type fileService struct{}
@@ -21,19 +16,19 @@ func NewFileService() FileService {
     return &fileService{}
 }
 
-func (s *fileService) ListFiles(path string) ([]FileInfo, error) {
+func (s *fileService) ListFiles(path string) ([]repository.FileInfo, error) {
     entries, err := os.ReadDir(path)
     if err != nil {
         return nil, err
     }
-    var files []FileInfo
+    var files []repository.FileInfo
     for _, entry := range entries {
         if entry.Type().IsRegular() {
             info, err := entry.Info()
             if err != nil {
                 continue
             }
-            files = append(files, FileInfo{
+            files = append(files, repository.FileInfo{
                 Name:    entry.Name(),
                 ModTime: info.ModTime(),
             })

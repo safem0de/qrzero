@@ -16,7 +16,9 @@ go run .
 
 ### Data Generate QR String
 ```bash
-010550400104700
-142984
-88401
+{
+  "account_num": "142984",
+  "biller_id": "010550400104700",
+  "company_bank": "88401"
+}
 ```

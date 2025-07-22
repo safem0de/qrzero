@@ -15,6 +15,41 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/customers": {
+            "get": {
+                "description": "คืนค่าข้อมูลลูกค้าที่แอคทีฟหรือ Re-Active ในสัปดาห์ปัจจุบัน (ตาม MSSQL)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v1-GET"
+                ],
+                "summary": "รายชื่อลูกค้าแอคทีฟในสัปดาห์นี้",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/repository.Customer"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/files": {
             "get": {
                 "description": "Show filename and last modified time in a directory",
@@ -43,7 +78,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/service.FileInfo"
+                                "$ref": "#/definitions/repository.FileInfo"
                             }
                         }
                     },
@@ -190,17 +225,18 @@ const docTemplate = `{
         "handler.GenerateRequest": {
             "type": "object",
             "required": [
-                "account_id",
-                "group_id"
+                "account_num",
+                "biller_id",
+                "company_bank"
             ],
             "properties": {
-                "account_id": {
+                "account_num": {
                     "type": "string"
                 },
-                "customer_id": {
+                "biller_id": {
                     "type": "string"
                 },
-                "group_id": {
+                "company_bank": {
                     "type": "string"
                 }
             }
@@ -220,7 +256,30 @@ const docTemplate = `{
                 }
             }
         },
-        "service.FileInfo": {
+        "repository.Customer": {
+            "type": "object",
+            "properties": {
+                "account_num": {
+                    "type": "string"
+                },
+                "biller_id": {
+                    "type": "string"
+                },
+                "company_bank": {
+                    "type": "string"
+                },
+                "customer_status": {
+                    "type": "integer"
+                },
+                "modified_datetime": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "repository.FileInfo": {
             "type": "object",
             "properties": {
                 "mod_time": {
