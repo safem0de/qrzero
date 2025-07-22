@@ -11,21 +11,15 @@ import (
 
 type customerRepository struct {
 	db *sql.DB
+	queries *Queries
 }
 
-func NewCustomerRepository(db *sql.DB) application.CustomerService {
-	return &customerRepository{db: db}
+func NewCustomerRepository(db *sql.DB, queries *Queries) application.CustomerService {
+	return &customerRepository{db: db, queries: queries}
 }
 
 func (r *customerRepository) GetRecentActiveCustomers(ctx context.Context) ([]entity.Customer, error) {
-	query := `
-	SELECT [BTL_BILLERID], [ACCOUNTNUM], [BPC_COMPANYBANK], [NAME], [BTL_CUSTOMERSTATUS], [MODIFIEDDATETIME]
-	FROM [WEBORDER].[dbo].[CUSTTABLE]
-	WHERE [MODIFIEDDATETIME] >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
-	  AND [MODIFIEDDATETIME] <  DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) + 1, 0)
-	  AND [BTL_CUSTOMERSTATUS] IN (0, 2)
-	  AND [BTL_BILLERID] != ''
-	ORDER BY [MODIFIEDDATETIME] DESC;`
+	query := r.queries.GetRecentActiveCustomers
 
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
