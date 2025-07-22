@@ -21,7 +21,7 @@ func NewQRHandler(svc service.QRService) *QRHandler {
 
 // @Summary      Generate QR Code
 // @Description  สร้างไฟล์ QR Code PNG จาก text
-// @Tags         v1
+// @Tags         v1-POST
 // @Accept       json
 // @Produce      json
 // @Param        body  body  QRRequest  true  "ข้อมูล QR"

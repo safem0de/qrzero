@@ -15,6 +15,50 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/files": {
+            "get": {
+                "description": "Show filename and last modified time in a directory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v1-GET"
+                ],
+                "summary": "List files in directory",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Directory path",
+                        "name": "path",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/service.FileInfo"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/generate": {
             "post": {
                 "description": "Generate string from input params",
@@ -25,7 +69,7 @@ const docTemplate = `{
                     "text/plain"
                 ],
                 "tags": [
-                    "v1"
+                    "v1-POST"
                 ],
                 "summary": "Generate String",
                 "parameters": [
@@ -56,7 +100,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "v1"
+                    "v1-GET"
                 ],
                 "summary": "Say Hello (V1)",
                 "responses": {
@@ -82,7 +126,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "v1"
+                    "v1-POST"
                 ],
                 "summary": "Generate QR Code",
                 "parameters": [
@@ -172,6 +216,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "qr": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.FileInfo": {
+            "type": "object",
+            "properties": {
+                "mod_time": {
+                    "type": "string"
+                },
+                "name": {
                     "type": "string"
                 }
             }

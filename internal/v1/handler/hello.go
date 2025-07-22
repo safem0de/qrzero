@@ -7,7 +7,7 @@ import (
 // HelloHandler godoc
 // @Summary      Say Hello (V1)
 // @Description  Hello from v1
-// @Tags         v1
+// @Tags         v1-GET
 // @Produce      json
 // @Success      200  {object}  map[string]string
 // @Router       /api/v1/hello [get]

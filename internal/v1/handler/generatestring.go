@@ -22,7 +22,7 @@ func NewGenerateHandler(svc service.GenerateService) *GenerateHandler {
 
 // @Summary      Generate String
 // @Description  Generate string from input params
-// @Tags         v1
+// @Tags         v1-POST
 // @Accept       json
 // @Produce      plain
 // @Param        body  body  GenerateRequest  true  "Request body"

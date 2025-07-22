@@ -21,9 +21,13 @@ func main() {
     qrService := service_v1.NewQRService()
     qrHandler := handler_v1.NewQRHandler(qrService)
 
+    fileSvc := service_v1.NewFileService()
+    fileHandler := handler_v1.NewFileHandler(fileSvc)
+
     v1 := r.Group("/api/v1")
     {
         v1.GET("/hello", handler_v1.HelloHandler)
+        v1.GET("/files", fileHandler.ListFiles)
         v1.POST("/generate", genHandler.Generate)
         v1.POST("/qr", qrHandler.GenerateQR)
     }

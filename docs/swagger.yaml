@@ -21,9 +21,45 @@ definitions:
     - path
     - qr
     type: object
+  service.FileInfo:
+    properties:
+      mod_time:
+        type: string
+      name:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /api/v1/files:
+    get:
+      consumes:
+      - application/json
+      description: Show filename and last modified time in a directory
+      parameters:
+      - description: Directory path
+        in: query
+        name: path
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/service.FileInfo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List files in directory
+      tags:
+      - v1-GET
   /api/v1/generate:
     post:
       consumes:
@@ -45,7 +81,7 @@ paths:
             type: string
       summary: Generate String
       tags:
-      - v1
+      - v1-POST
   /api/v1/hello:
     get:
       description: Hello from v1
@@ -60,7 +96,7 @@ paths:
             type: object
       summary: Say Hello (V1)
       tags:
-      - v1
+      - v1-GET
   /api/v1/qr:
     post:
       consumes:
@@ -90,7 +126,7 @@ paths:
             type: object
       summary: Generate QR Code
       tags:
-      - v1
+      - v1-POST
   /api/v2/hello:
     get:
       description: Hello from v2 (new logic)
