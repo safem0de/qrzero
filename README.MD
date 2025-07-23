@@ -35,3 +35,11 @@ https://scanqr.org/
 ```bash
 ./143024.png
 ```
+
+{
+  "account_num": "142984",
+  "amount": "0",
+  "biller_id": "010550400104700",
+  "company_bank": "88401",
+  "file_path": "./142984.png"
+}

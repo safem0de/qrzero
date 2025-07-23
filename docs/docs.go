@@ -169,6 +169,61 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/generate-qr-job": {
+            "post": {
+                "description": "ส่งข้อมูลไป Queue เพื่อ generate QR (RabbitMQ/Async)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v1-POST"
+                ],
+                "summary": "Queue QR Job Generation",
+                "parameters": [
+                    {
+                        "description": "QR job request data",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.QRJobRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/hello": {
             "get": {
                 "description": "Hello from v1",
@@ -339,6 +394,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "company_bank": {
+                    "type": "string"
+                }
+            }
+        },
+        "entity.QRJobRequest": {
+            "type": "object",
+            "properties": {
+                "account_num": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "string"
+                },
+                "biller_id": {
+                    "type": "string"
+                },
+                "company_bank": {
+                    "type": "string"
+                },
+                "file_path": {
                     "type": "string"
                 }
             }

@@ -37,6 +37,14 @@ func main() {
 		log.Fatal("cannot load queries: ", err)
 	}
 
+	rabbitClient, err := infrastructure.NewRabbitMQClient(os.Getenv("AMQP_URL"))
+    if err != nil {
+        log.Fatal("RabbitMQ error:", err)
+    }
+
+    customerService := infrastructure.NewCustomerService(rabbitClient)
+	customerHandler := handler_v1.NewCustomerHandler(customerService)
+
 	custableRepo := infrastructure.NewCustableRepository(db, queries)
 	custableHandler := handler_v1.NewCustableHandler(custableRepo)
 
@@ -62,6 +70,7 @@ func main() {
 		v1.GET("/file-exist", fileExistHandler.CheckFileExist)
 		v1.POST("/generate", genStringHandler.GenerateString)
 		v1.POST("/qr", genQRHandler.GenerateQR)
+		v1.POST("/generate-qr-job", customerHandler.GenerateQRJob)
 	}
 
 	v2 := r.Group("/api/v2")

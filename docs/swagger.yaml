@@ -52,6 +52,19 @@ definitions:
     - biller_id
     - company_bank
     type: object
+  entity.QRJobRequest:
+    properties:
+      account_num:
+        type: string
+      amount:
+        type: string
+      biller_id:
+        type: string
+      company_bank:
+        type: string
+      file_path:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -155,6 +168,42 @@ paths:
           schema:
             type: string
       summary: Generate String
+      tags:
+      - v1-POST
+  /api/v1/generate-qr-job:
+    post:
+      consumes:
+      - application/json
+      description: ส่งข้อมูลไป Queue เพื่อ generate QR (RabbitMQ/Async)
+      parameters:
+      - description: QR job request data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/entity.QRJobRequest'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Queue QR Job Generation
       tags:
       - v1-POST
   /api/v1/hello:

@@ -1,3 +1,5 @@
+// internal\02_application\customer.go
+
 package application
 
 import (
