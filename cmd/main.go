@@ -40,8 +40,11 @@ func main() {
 	customerRepo := infrastructure.NewCustomerRepository(db, queries)
 	customerHandler := handler_v1.NewCustomerHandler(customerRepo)
 
-	fileRepo := infrastructure.NewFileRepository()
-	fileHandler := handler_v1.NewFileHandler(fileRepo)
+	fileCheckingRepo := infrastructure.NewFileCheckingRepository()
+	fileCheckingHandler := handler_v1.NewFileHandler(fileCheckingRepo)
+
+	fileExistRepo := infrastructure.NewFileExistRepository()
+	fileExistHandler := handler_v1.NewFileExistHandler(fileExistRepo)
 
 	genStringRepo := infrastructure.NewGenerateStringRepository()
 	genStringHandler := handler_v1.NewGenerateStringHandler(genStringRepo)
@@ -55,7 +58,8 @@ func main() {
 	{
 		v1.GET("/hello", handler_v1.HelloHandler)
 		v1.GET("/customers", customerHandler.GetRecentActiveCustomers)
-		v1.GET("/files", fileHandler.ListFiles)
+		v1.GET("/files", fileCheckingHandler.ListFiles)
+		v1.GET("/file-exist", fileExistHandler.CheckFileExist)
 		v1.POST("/generate", genStringHandler.GenerateString)
 		v1.POST("/qr", genQRHandler.GenerateQR)
 	}

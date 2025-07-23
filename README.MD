@@ -29,3 +29,9 @@ https://scanqr.org/
   "path": "./test-ja.png",
   "qr": "|010550400104700\n14298488401\n\n0"
 }
+```
+
+### Check Exist File
+```bash
+./143024.png
+```

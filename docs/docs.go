@@ -50,6 +50,47 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/file-exist": {
+            "get": {
+                "description": "ตรวจสอบว่าไฟล์ path นี้มีอยู่จริงไหม",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v1-GET"
+                ],
+                "summary": "Check file exist",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "File path",
+                        "name": "path",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.FileExistResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/files": {
             "get": {
                 "description": "Show filename and last modified time in a directory",
@@ -242,6 +283,14 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "entity.FileExistResponse": {
+            "type": "object",
+            "properties": {
+                "exists": {
+                    "type": "boolean"
                 }
             }
         },

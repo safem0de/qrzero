@@ -4,7 +4,7 @@ import (
     "qrzero/internal/01_entity"
 )
 
-type FileService interface {
+type FileCheckingService interface {
     ListFiles(path string) ([]entity.FileInfo, error)
 }
 

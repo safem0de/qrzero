@@ -6,12 +6,12 @@ import (
     "qrzero/internal/02_application"
 )
 
-type FileHandler struct {
-    svc application.FileService
+type FileCheckingHandler struct {
+    svc application.FileCheckingService
 }
 
-func NewFileHandler(svc application.FileService) *FileHandler {
-    return &FileHandler{svc: svc}
+func NewFileHandler(svc application.FileCheckingService) *FileCheckingHandler {
+    return &FileCheckingHandler{svc: svc}
 }
 
 // @Summary      List files in directory
@@ -23,7 +23,7 @@ func NewFileHandler(svc application.FileService) *FileHandler {
 // @Success      200  {array}  entity.FileInfo
 // @Failure      400  {object}  map[string]string
 // @Router       /api/v1/files [get]
-func (h *FileHandler) ListFiles(c *gin.Context) {
+func (h *FileCheckingHandler) ListFiles(c *gin.Context) {
     path := c.Query("path")
     if path == "" {
         c.JSON(http.StatusBadRequest, gin.H{"error": "path is required"})

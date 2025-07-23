@@ -7,13 +7,13 @@ import (
 	"qrzero/internal/02_application"
 )
 
-type fileRepository struct{}
+type fileCheckingRepository struct{}
 
-func NewFileRepository() application.FileService {
-    return &fileRepository{}
+func NewFileCheckingRepository() application.FileCheckingService {
+    return &fileCheckingRepository{}
 }
 
-func (s *fileRepository) ListFiles(path string) ([]entity.FileInfo, error) {
+func (s *fileCheckingRepository) ListFiles(path string) ([]entity.FileInfo, error) {
     entries, err := os.ReadDir(path)
     if err != nil {
         return nil, err

@@ -14,6 +14,11 @@ definitions:
       name:
         type: string
     type: object
+  entity.FileExistResponse:
+    properties:
+      exists:
+        type: boolean
+    type: object
   entity.FileInfo:
     properties:
       mod_time:
@@ -72,6 +77,33 @@ paths:
               type: string
             type: object
       summary: รายชื่อลูกค้าแอคทีฟในสัปดาห์นี้
+      tags:
+      - v1-GET
+  /api/v1/file-exist:
+    get:
+      consumes:
+      - application/json
+      description: ตรวจสอบว่าไฟล์ path นี้มีอยู่จริงไหม
+      parameters:
+      - description: File path
+        in: query
+        name: path
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.FileExistResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Check file exist
       tags:
       - v1-GET
   /api/v1/files:
