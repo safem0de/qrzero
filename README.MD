@@ -36,6 +36,8 @@ https://scanqr.org/
 ./143024.png
 ```
 
+### generate-qr-job
+```bash
 {
   "account_num": "142984",
   "amount": "0",
@@ -43,3 +45,14 @@ https://scanqr.org/
   "company_bank": "88401",
   "file_path": "./142984.png"
 }
+```
+
+### Job-sender
+```bash
+go run ./cmd/bulkqr/main.go
+```
+
+### Worker
+```bash
+go run ./cmd/worker/main.go
+```
