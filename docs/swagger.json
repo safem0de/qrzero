@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/api/v1/customers": {
+        "/api/v1/custable": {
             "get": {
                 "description": "คืนค่าข้อมูลลูกค้าที่แอคทีฟหรือ Re-Active ในสัปดาห์ปัจจุบัน (ตาม MSSQL)",
                 "consumes": [
@@ -23,7 +23,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/entity.Customer"
+                                "$ref": "#/definitions/entity.Custable"
                             }
                         }
                     },
@@ -252,7 +252,7 @@
         }
     },
     "definitions": {
-        "entity.Customer": {
+        "entity.Custable": {
             "type": "object",
             "properties": {
                 "account_num": {
@@ -264,11 +264,11 @@
                 "company_bank": {
                     "type": "string"
                 },
+                "created_datetime": {
+                    "type": "string"
+                },
                 "customer_status": {
                     "type": "integer"
-                },
-                "modified_datetime": {
-                    "type": "string"
                 },
                 "name": {
                     "type": "string"

@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/customers": {
+        "/api/v1/custable": {
             "get": {
                 "description": "คืนค่าข้อมูลลูกค้าที่แอคทีฟหรือ Re-Active ในสัปดาห์ปัจจุบัน (ตาม MSSQL)",
                 "consumes": [
@@ -34,7 +34,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/entity.Customer"
+                                "$ref": "#/definitions/entity.Custable"
                             }
                         }
                     },
@@ -263,7 +263,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "entity.Customer": {
+        "entity.Custable": {
             "type": "object",
             "properties": {
                 "account_num": {
@@ -275,11 +275,11 @@ const docTemplate = `{
                 "company_bank": {
                     "type": "string"
                 },
+                "created_datetime": {
+                    "type": "string"
+                },
                 "customer_status": {
                     "type": "integer"
-                },
-                "modified_datetime": {
-                    "type": "string"
                 },
                 "name": {
                     "type": "string"

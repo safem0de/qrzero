@@ -37,8 +37,8 @@ func main() {
 		log.Fatal("cannot load queries: ", err)
 	}
 
-	customerRepo := infrastructure.NewCustomerRepository(db, queries)
-	customerHandler := handler_v1.NewCustomerHandler(customerRepo)
+	custableRepo := infrastructure.NewCustableRepository(db, queries)
+	custableHandler := handler_v1.NewCustableHandler(custableRepo)
 
 	fileCheckingRepo := infrastructure.NewFileCheckingRepository()
 	fileCheckingHandler := handler_v1.NewFileHandler(fileCheckingRepo)
@@ -57,7 +57,7 @@ func main() {
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("/hello", handler_v1.HelloHandler)
-		v1.GET("/customers", customerHandler.GetRecentActiveCustomers)
+		v1.GET("/custable", custableHandler.GetRecentActiveCustomers)
 		v1.GET("/files", fileCheckingHandler.ListFiles)
 		v1.GET("/file-exist", fileExistHandler.CheckFileExist)
 		v1.POST("/generate", genStringHandler.GenerateString)

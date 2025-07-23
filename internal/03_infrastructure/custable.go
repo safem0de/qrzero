@@ -9,16 +9,16 @@ import (
 	"qrzero/internal/02_application"
 )
 
-type customerRepository struct {
+type custableRepository struct {
 	db *sql.DB
 	queries *Queries
 }
 
-func NewCustomerRepository(db *sql.DB, queries *Queries) application.CustomerService {
-	return &customerRepository{db: db, queries: queries}
+func NewCustableRepository(db *sql.DB, queries *Queries) application.CustableService {
+	return &custableRepository{db: db, queries: queries}
 }
 
-func (r *customerRepository) GetRecentActiveCustomers(ctx context.Context) ([]entity.Customer, error) {
+func (r *custableRepository) GetRecentActiveCustomers(ctx context.Context) ([]entity.Custable, error) {
 	query := r.queries.GetRecentActiveCustomers
 
 	rows, err := r.db.QueryContext(ctx, query)
@@ -27,16 +27,16 @@ func (r *customerRepository) GetRecentActiveCustomers(ctx context.Context) ([]en
 	}
 	defer rows.Close()
 
-	var customers []entity.Customer
+	var customers []entity.Custable
 	for rows.Next() {
-		var c entity.Customer
+		var c entity.Custable
 		err := rows.Scan(
 			&c.BillerID,
 			&c.AccountNum,
 			&c.CompanyBank,
 			&c.Name,
 			&c.CustomerStatus,
-			&c.ModifiedDateTime,
+			&c.CreatedDateTime,
 		)
 		if err != nil {
 			return nil, err

@@ -7,6 +7,6 @@ import (
 	"qrzero/internal/01_entity"
 )
 
-type CustomerService interface {
-	GetRecentActiveCustomers(ctx context.Context) ([]entity.Customer, error)
+type CustableService interface {
+	GetRecentActiveCustomers(ctx context.Context) ([]entity.Custable, error)
 }
