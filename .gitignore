@@ -18,3 +18,6 @@ Gopkg.toml
 # Swag auto-gen (swag init)
 docs/swagger.json
 docs/swagger.yaml
+
+# sonarqube
+sonar-project.properties

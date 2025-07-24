@@ -56,3 +56,23 @@ go run ./cmd/bulkqr/main.go
 ```bash
 go run ./cmd/worker/main.go
 ```
+
+### วิธีรัน
+จาก root project หรือจาก folder handler:
+```bash
+go test ./internal/04_api/v1/handler -v
+```
+หรือรันทั้งหมด
+```bash
+go test ./... -v
+```
+
+### run coverage
+```bash
+go test ./... -coverprofile=coverage.out
+```
+
+### sonar-scanner
+```bash
+ืnpx sonar-scanner
+```
