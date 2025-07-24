@@ -46,32 +46,43 @@ https://scanqr.org/
   "file_path": "./142984.png"
 }
 ```
-
+---
 ### Job-sender
 ```bash
 go run ./cmd/bulkqr/main.go
 ```
-
 ### Worker
 ```bash
 go run ./cmd/worker/main.go
 ```
-
+---
 ### วิธีรัน
 จาก root project หรือจาก folder handler:
 ```bash
+go test ./internal/03_infrastructure -v
 go test ./internal/04_api/v1/handler -v
+```
+เฉพาะ unit test
+```bash
+go test ./internal/...
 ```
 หรือรันทั้งหมด
 ```bash
 go test ./... -v
 ```
-
+ถ้าอยากเช็คว่าครอบคลุมไฟล์ไหนบ้าง
+```bash
+go tool cover -func=coverage.out
+```
+เปิดดู coverage สีเขียว/แดงบน browser
+```bash
+go tool cover -html=coverage.out
+```
+---
 ### run coverage
 ```bash
 go test ./... -coverprofile=coverage.out
 ```
-
 ### sonar-scanner
 ```bash
 ืnpx sonar-scanner
