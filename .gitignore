@@ -21,4 +21,5 @@ docs/swagger.yaml
 
 # sonarqube
 sonar-project.properties
+.scannerwork
 .scannerwork/
