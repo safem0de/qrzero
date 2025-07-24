@@ -85,5 +85,5 @@ go test ./... -coverprofile=coverage.out
 ```
 ### sonar-scanner
 ```bash
-ืnpx sonar-scanner
+npx sonar-scanner
 ```

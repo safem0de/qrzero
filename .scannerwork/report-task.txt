@@ -2,5 +2,5 @@ projectKey=qrzero
 serverUrl=http://localhost:9000
 serverVersion=25.7.0.110598
 dashboardUrl=http://localhost:9000/dashboard?id=qrzero
-ceTaskId=bf8cf778-e24f-485a-a1e3-966955cbc6e2
-ceTaskUrl=http://localhost:9000/api/ce/task?id=bf8cf778-e24f-485a-a1e3-966955cbc6e2
+ceTaskId=c4c11e29-47b6-4b8a-b8cc-6e896ba710dd
+ceTaskUrl=http://localhost:9000/api/ce/task?id=c4c11e29-47b6-4b8a-b8cc-6e896ba710dd
